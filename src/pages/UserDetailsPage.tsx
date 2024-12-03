@@ -1,9 +1,5 @@
 import GoBackBtn from "../components/GoBackBtn";
-import {
-  useDeleteUserMutation,
-  useGetAllUsersQuery,
-  useUpdateUserMutation,
-} from "../redux/apiSlice";
+import { useDeleteUserMutation, useGetAllUsersQuery } from "../redux/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UserDetails = () => {
