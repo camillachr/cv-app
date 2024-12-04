@@ -13,31 +13,43 @@ export const api = createApi({
       return headers;
     },
   }),
+  tagTypes: ["Users", "CVs"],
 
   endpoints: (builder) => ({
+    // All users
     getAllUsers: builder.query<User[], void>({
       query: () => `users`,
       transformResponse: (response: ApiResponse<User>) => response.items,
+      providesTags: ["Users"],
     }),
+
+    // Create user
     createUser: builder.mutation<User, UserPost>({
       query: (newUser) => ({
         url: "users",
         method: "POST",
         body: [newUser],
       }),
+      invalidatesTags: ["Users"],
     }),
+
+    // Update user
     updateUser: builder.mutation<User, { id: string; data: UserPost }>({
       query: ({ id, data }) => ({
         url: `users/${id}`,
         method: "PUT",
         body: data,
       }),
+      invalidatesTags: ["Users"],
     }),
+
+    // Delete user
     deleteUser: builder.mutation<void, string>({
       query: (id) => ({
         url: `users/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Users"],
     }),
   }),
 });
