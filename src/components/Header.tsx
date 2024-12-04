@@ -1,14 +1,31 @@
+import { useDispatch, useSelector } from "react-redux";
 import Navbar from "./Navbar";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { RootState } from "../redux/store";
+import { logout } from "../redux/authSlice";
+import LoginBtn from "./LoginBtn";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate("/");
+  };
 
   return (
     <header>
-      <h3>LOGO</h3>
+      <Link to={"/"}>
+        <h2>CV-APP</h2>
+      </Link>
       <Navbar />
-      <button onClick={() => navigate("/login")}>Login</button>
+      {isAuthenticated ? (
+        <button onClick={handleLogout}>Logout</button>
+      ) : (
+        <LoginBtn />
+      )}
     </header>
   );
 };
