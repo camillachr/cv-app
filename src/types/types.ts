@@ -10,6 +10,7 @@ export interface User extends UserPost {
 
 export interface UserPost {
   name: string;
+  username: string;
   email: string;
   password: string;
   role?: string;
