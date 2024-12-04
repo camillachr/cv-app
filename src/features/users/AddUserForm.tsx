@@ -6,6 +6,7 @@ import GoBackBtn from "../../components/GoBackBtn";
 const AddUserForm = () => {
   const [formData, setFormData] = useState<UserPost>({
     name: "",
+    username: "",
     email: "",
     password: "",
     role: "user", // standard
@@ -27,6 +28,7 @@ const AddUserForm = () => {
       await createUser(formData).unwrap();
       setFormData({
         name: "",
+        username: "",
         email: "",
         password: "",
         role: "user",
@@ -48,6 +50,17 @@ const AddUserForm = () => {
             id="name"
             name="name"
             value={formData.name}
+            onChange={handleInputChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={formData.username}
             onChange={handleInputChange}
             required
           />
