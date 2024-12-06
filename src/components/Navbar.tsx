@@ -1,6 +1,8 @@
 import { RootState } from "../redux/store";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { ROUTES } from "../routes/AppRoutes";
+import useUserCV from "../hooks/useUserCV";
 
 const Navbar = () => {
   const { user, isAuthenticated } = useSelector(
@@ -9,17 +11,20 @@ const Navbar = () => {
 
   const isAdmin = isAuthenticated && user?.role === "admin";
 
+  if (!isAuthenticated) return null;
+
   return (
     <div>
-      {isAuthenticated && (
-        <nav>
-          <Link to={"/"}>Home</Link>
+      <nav>
+        <Link to={ROUTES.ROOT}>Home</Link>
 
-          {user?.role === "user" && <Link to={"/cvs/:id"}>My CV</Link>}
-          {isAdmin && <Link to={"/cvs"}>CVs</Link>}
-          {isAdmin && <Link to={"/users"}>Users</Link>}
-        </nav>
-      )}
+        {/* My CV for users */}
+        {!isAdmin && <Link to={ROUTES.MY_CV}>My CV</Link>}
+
+        {/* Admin-spesifikke lenker */}
+        {isAdmin && <Link to={ROUTES.ADMIN.CVS}>CVs</Link>}
+        {isAdmin && <Link to={ROUTES.ADMIN.USERS}>Users</Link>}
+      </nav>
     </div>
   );
 };

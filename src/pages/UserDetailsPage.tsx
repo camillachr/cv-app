@@ -6,6 +6,7 @@ import {
   useUpdateUserMutation,
 } from "../redux/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import { ROUTES } from "../routes/AppRoutes";
 
 const UserDetails = () => {
   const { id } = useParams();
@@ -39,7 +40,7 @@ const UserDetails = () => {
   const handleSaveChanges = async () => {
     try {
       await updateUser({ id: user._uuid, data: formData }).unwrap();
-      navigate("/users");
+      navigate(ROUTES.ADMIN.USERS);
     } catch (error) {
       console.error("Failed to update user:", error);
     }
@@ -48,7 +49,7 @@ const UserDetails = () => {
   const handleDelete = async () => {
     try {
       await deleteUser(user._uuid).unwrap();
-      navigate("/users");
+      navigate(ROUTES.ADMIN.USERS);
     } catch (error) {
       console.error("Failed to delete user:", error);
     }

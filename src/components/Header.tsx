@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
 import { logout } from "../redux/authSlice";
 import LoginBtn from "./LoginBtn";
+import { ROUTES } from "../routes/AppRoutes";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,12 +13,12 @@ const Header = () => {
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/");
+    navigate(ROUTES.ROOT);
   };
 
   return (
     <header>
-      <Link to={"/"}>
+      <Link to={ROUTES.ROOT}>
         <h2>CV-APP</h2>
       </Link>
       <Navbar />

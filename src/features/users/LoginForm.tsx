@@ -3,6 +3,7 @@ import { useGetAllUsersQuery } from "../../redux/apiSlice";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes/AppRoutes";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -47,7 +48,7 @@ const LoginForm = () => {
         })
       );
 
-      navigate("/");
+      navigate(ROUTES.ROOT); // ! Navigere til forrige side?
     } catch (err: any) {
       setError(err.message);
     } finally {
