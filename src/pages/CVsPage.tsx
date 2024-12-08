@@ -1,9 +1,9 @@
-import React from "react";
+import CVList from "../features/cv/CVList";
 
 const CV = () => {
   return (
     <div>
-      <h1>En CV</h1>
+      <CVList />
     </div>
   );
 };

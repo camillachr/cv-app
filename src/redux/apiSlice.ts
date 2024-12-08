@@ -1,12 +1,5 @@
 import { fetchBaseQuery, createApi } from "@reduxjs/toolkit/query/react";
-import {
-  User,
-  UserPost,
-  ApiResponse,
-  CV,
-  CVPost,
-  ApiGeneratedFields,
-} from "../types/types";
+import { User, UserPost, ApiResponse, CV, CVPost } from "../types/types";
 
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
@@ -25,7 +18,7 @@ export const api = createApi({
   tagTypes: ["Users", "CVs"],
 
   endpoints: (builder) => ({
-    // All users
+    // All users ---------------------------------
     getAllUsers: builder.query<User[], void>({
       query: () => `users`,
       transformResponse: (response: ApiResponse<User>) => response.items,
@@ -61,10 +54,17 @@ export const api = createApi({
       invalidatesTags: ["Users"],
     }),
 
-    // All CVs
+    // All CVs --------------------------------------
     getAllCVs: builder.query<CV[], void>({
       query: () => `cvs`,
       transformResponse: (response: ApiResponse<CV>) => response.items,
+      providesTags: ["CVs"],
+    }),
+
+    // CV
+    getCV: builder.query<CV, string>({
+      query: (id) => `cvs/${id}`,
+      // transformResponse: (response: ApiResponse<CV>) => response.items,
       providesTags: ["CVs"],
     }),
 
@@ -75,7 +75,27 @@ export const api = createApi({
         method: "POST",
         body: [newCV],
       }),
-      invalidatesTags: ["Users"],
+      transformResponse: (response: ApiResponse<CV>) => response.items[0],
+      invalidatesTags: ["CVs"],
+    }),
+
+    // ! Update CV - ikke testet
+    updateCV: builder.mutation<CV, { id: string; data: CVPost }>({
+      query: ({ id, data }) => ({
+        url: `cvs/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["CVs"],
+    }),
+
+    // Delete CV
+    deleteCV: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `cvs/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["CVs"],
     }),
   }),
 });
@@ -86,5 +106,8 @@ export const {
   useUpdateUserMutation,
   useDeleteUserMutation,
   useGetAllCVsQuery,
+  useGetCVQuery,
   useCreateCVMutation,
+  useUpdateCVMutation,
+  useDeleteCVMutation,
 } = api;

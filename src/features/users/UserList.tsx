@@ -19,7 +19,7 @@ const UserList = () => {
       <ul>
         {users?.map((user) => (
           <li key={user._uuid}>
-            <Link to={`${ROUTES.ADMIN.USER.replace(":id", user._uuid)}`}>
+            <Link to={`${ROUTES.ADMIN.USER(user._uuid)}`}>
               {user.name} - {user.email} - {user.role}
             </Link>
           </li>

@@ -2,18 +2,25 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useCreateCVMutation, useGetAllCVsQuery } from "../redux/apiSlice";
 import { CVPost } from "../types/types";
-import CVEditor from "../features/cv/cv-editor/CVEditor";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../routes/AppRoutes";
 
+//! IKKE I BRUK
 const MyCVPage = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { data: cvs, isLoading: isLoadingCVs } = useGetAllCVsQuery();
-  const [createCV, { isLoading, isSuccess, isError }] = useCreateCVMutation();
+  const [createCV, { isLoading, isError }] = useCreateCVMutation();
+  const navigate = useNavigate();
 
   if (!user) {
     return <p>You need to log in to access this page.</p>;
   }
 
-  const userCV = cvs?.find((cv) => cv.userId === user.id);
+  // const userCV = cvs?.find((cv) => cv.userId === user.id);
+
+  if (isLoadingCVs) {
+    return <p>Loading...</p>;
+  }
 
   const initialCV: CVPost = {
     userId: user?.id,
@@ -31,19 +38,12 @@ const MyCVPage = () => {
 
   const handleCreate = async () => {
     try {
-      await createCV(initialCV).unwrap();
+      const createdCV = await createCV(initialCV).unwrap();
+      navigate(ROUTES.MY_CV(createdCV._uuid));
     } catch (error) {
       console.error("Failed to create cv:", error);
     }
   };
-
-  if (isLoadingCVs) {
-    return <p>Loading...</p>;
-  }
-
-  if (userCV) {
-    return <CVEditor />;
-  }
 
   return (
     <div>
@@ -54,8 +54,7 @@ const MyCVPage = () => {
       <button onClick={handleCreate} disabled={isLoading}>
         {isLoading ? "Creating CV..." : "Create CV"}
       </button>
-      {/* isSuccess skal navigere til cv editor */}
-      {isSuccess && <p>naviger...</p>}
+
       {isError && <p>There was an error, please try again.</p>}
     </div>
   );
