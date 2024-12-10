@@ -1,4 +1,4 @@
-import { useGetAllCVsQuery, useGetAllUsersQuery } from "../redux/apiSlice";
+import { useGetAllCVsQuery, useGetAllUsersQuery } from "../../redux/apiSlice";
 
 const AdminDashboard = () => {
   const {

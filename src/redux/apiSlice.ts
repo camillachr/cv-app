@@ -22,6 +22,16 @@ export const api = createApi({
     getAllUsers: builder.query<User[], void>({
       query: () => `users`,
       transformResponse: (response: ApiResponse<User>) => response.items,
+      async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error: any) {
+          if (error.error?.status === 403) {
+            console.error("Forbidden: You do not have admin rights.");
+            alert("You do not have permission to access this resource.");
+          }
+        }
+      },
       providesTags: ["Users"],
     }),
 
@@ -79,7 +89,7 @@ export const api = createApi({
       invalidatesTags: ["CVs"],
     }),
 
-    // ! Update CV - ikke testet
+    // Update CV
     updateCV: builder.mutation<CV, { id: string; data: CVPost }>({
       query: ({ id, data }) => ({
         url: `cvs/${id}`,

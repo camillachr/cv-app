@@ -41,8 +41,23 @@ header {
   align-items: center;
 }
 
+h1,
+h2 {
+  margin-bottom: 20px;
+}
 header h3 {
   color: var(--blue-dark);
+}
+
+.wrapper {
+  width: 100%;
+  padding: 40px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-top: 0;
+  width: 100%;
 }
 
 nav {
@@ -112,4 +127,60 @@ footer {
 
 label {
   margin-right: 10px;
+}
+
+/* CV EDITOR */
+
+.cv-editor {
+  display: flex;
+  width: 100%;
+}
+
+.cv-editor-nav {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 10px;
+
+  border-right: 1px solid #ddd;
+}
+
+.cv-editor-nav button {
+  background: none;
+  border: none;
+  padding: 10px 15px;
+  text-align: left;
+  font-size: 16px;
+  cursor: pointer;
+  color: var(--blue-dark);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.cv-editor-nav button:hover {
+  background-color: #eaeaea;
+}
+
+.cv-editor-nav button.active {
+  background-color: #2b6777;
+  color: white;
+  font-weight: bold;
+}
+
+.editor-active-section {
+  width: 90%;
+}
+
+.cv-section {
+  margin: 30px;
+  border-bottom: 1px solid #2b6777;
+}
+
+.pdf-export-container {
+  display: flex;
+  width: 50vw;
+  gap: 20px;
+}
+
+.export-control {
+  flex: 30%;
 }

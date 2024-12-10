@@ -38,31 +38,27 @@ export interface CVPost {
 }
 
 export interface Education {
-  //id: string; ??
   institution: string;
   degree: string;
-  startYear: number;
-  endYear?: number;
+  startYear: string; //"YYY-MM-DD"
+  endYear?: string;
 }
 
 export interface Certificate {
-  //id: string; ??
   title: string;
   issuer: string;
-  date: string;
+  date: string; //"YYY-MM-DD"
   description?: string;
 }
 export interface Experience {
-  //id: string; ??
   company: string;
   jobTitle: string;
-  startDate: string;
+  startDate: string; //"YYY-MM-DD"
   endDate?: string;
   description?: string;
 }
 
 export interface References {
-  //id: string; ??
   name: string;
   contactInfo: string;
   relationship: string;

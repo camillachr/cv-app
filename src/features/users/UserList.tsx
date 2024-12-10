@@ -14,7 +14,6 @@ const UserList = () => {
 
   return (
     <div>
-      <h1>Users</h1>
       <button onClick={handleButtonClick}>+ Add user</button>
       <ul>
         {users?.map((user) => (

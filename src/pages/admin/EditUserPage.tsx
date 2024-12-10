@@ -1,14 +1,14 @@
 import { useState } from "react";
-import GoBackBtn from "../components/GoBackBtn";
+import GoBackBtn from "../../components/GoBackBtn";
 import {
   useDeleteUserMutation,
   useGetAllUsersQuery,
   useUpdateUserMutation,
-} from "../redux/apiSlice";
+} from "../../redux/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
-import { ROUTES } from "../routes/AppRoutes";
+import { ROUTES } from "../../routes/AppRoutes";
 
-const UserDetails = () => {
+const EditUserPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: users, isLoading, isError } = useGetAllUsersQuery();
@@ -137,4 +137,4 @@ const UserDetails = () => {
     </div>
   );
 };
-export default UserDetails;
+export default EditUserPage;

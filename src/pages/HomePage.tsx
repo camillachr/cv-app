@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes/AppRoutes";
 import useUserCV from "../hooks/useUserCV";
 import { CVPost } from "../types/types";
-import AdminDashboard from "./AdminDashboard";
+import AdminDashboard from "./admin/AdminDashboard";
 
 const HomePage = () => {
   const { user, isAuthenticated } = useSelector(

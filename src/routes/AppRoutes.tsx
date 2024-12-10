@@ -1,20 +1,21 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
-import Login from "../features/users/LoginForm";
-import CVsPage from "../pages/CVsPage";
-import UserList from "../features/users/UserList";
-import UserDetailsPage from "../pages/UserDetailsPage";
 import AddUserForm from "../features/users/AddUserForm";
-//import ProtectedRoute from "../components/ProtectedRoute";
-import CVDetailsPage from "../pages/CVDetailsPage";
-import AddCVForm from "../features/cv/AddCVForm";
+import ProtectedRoute from "../components/ProtectedRoute";
+import AddCVForm from "../features/cv/cv-admin/AddCVForm";
+import LoginForm from "../components/LoginForm";
+import EditCVPage from "../pages/EditCVPage";
+import EditUserPage from "../pages/admin/EditUserPage";
+import UsersPage from "../pages/admin/UsersPage";
+import CVsPage from "../pages/admin/CVsPage";
 
 export const ROUTES = {
   ROOT: "/",
   LOGIN: "/login",
-  MY_CV: (id: string) => `/mycv/${id}`,
+  MY_CV: (id: string) => `/mycv/${id}`, // Auth skal sjekker at user er eier av cv
 
   ADMIN: {
+    // Alle admin ruter skal være beskyttet og kreve admin rolle
     CVS: "/admin/cvs",
     CV: (id: string) => `/admin/cvs/${id}`,
     NEW_CV: "/admin/cvs/new",
@@ -28,17 +29,21 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path={ROUTES.ROOT} element={<HomePage />} />
-      <Route path={ROUTES.LOGIN} element={<Login />} />
-      <Route path={ROUTES.MY_CV(":id")} element={<CVDetailsPage />} />
+      <Route path={ROUTES.LOGIN} element={<LoginForm />} />
+
+      <Route element={<ProtectedRoute />}>
+        <Route path={ROUTES.MY_CV(":id")} element={<EditCVPage />} />
+      </Route>
 
       {/* Admin-routes: */}
-      <Route path={ROUTES.ADMIN.CVS} element={<CVsPage />} />
-      <Route path={ROUTES.ADMIN.CV(":id")} element={<CVDetailsPage />} />
-      <Route path={ROUTES.ADMIN.NEW_CV} element={<AddCVForm />} />
-
-      <Route path={ROUTES.ADMIN.USERS} element={<UserList />} />
-      <Route path={ROUTES.ADMIN.USER(":id")} element={<UserDetailsPage />} />
-      <Route path={ROUTES.ADMIN.NEW_USER} element={<AddUserForm />} />
+      <Route element={<ProtectedRoute requiredRole="admin" />}>
+        <Route path={ROUTES.ADMIN.CVS} element={<CVsPage />} />
+        <Route path={ROUTES.ADMIN.CV(":id")} element={<EditCVPage />} />
+        <Route path={ROUTES.ADMIN.NEW_CV} element={<AddCVForm />} />
+        <Route path={ROUTES.ADMIN.USERS} element={<UsersPage />} />
+        <Route path={ROUTES.ADMIN.USER(":id")} element={<EditUserPage />} />
+        <Route path={ROUTES.ADMIN.NEW_USER} element={<AddUserForm />} />
+      </Route>
     </Routes>
   );
 };

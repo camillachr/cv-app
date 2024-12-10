@@ -2,6 +2,8 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useGetAllCVsQuery } from "../redux/apiSlice";
 
+// For å sjekke om brukeren har en eksisterende CV eller ikke
+
 const useUserCV = () => {
   const { user } = useSelector((state: RootState) => state.auth);
   const { data: cvs, isLoading, error } = useGetAllCVsQuery();

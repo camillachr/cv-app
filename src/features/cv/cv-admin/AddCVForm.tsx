@@ -3,9 +3,9 @@ import {
   useGetAllUsersQuery,
   useGetAllCVsQuery,
   useCreateCVMutation,
-} from "../../redux/apiSlice";
-import { CVPost, User } from "../../types/types";
-import { ROUTES } from "../../routes/AppRoutes";
+} from "../../../redux/apiSlice";
+import { CVPost, User } from "../../../types/types";
+import { ROUTES } from "../../../routes/AppRoutes";
 
 const AddCVForm = () => {
   const navigate = useNavigate();
@@ -28,7 +28,6 @@ const AddCVForm = () => {
     (user) => !cvs?.some((cv) => cv.userId === user._uuid)
   );
 
-  //! Denne brukes også på HomePage, legg den i utils?
   const handleCreateCV = async (user: User) => {
     try {
       const initialCV: CVPost = {
@@ -70,12 +69,23 @@ const AddCVForm = () => {
           {usersWithoutCV.map((user) => (
             <li key={user._uuid}>
               {user.name} ({user.email})
-              <button onClick={() => handleCreateCV(user)}>Create CV</button>
+              <button
+                onClick={() => handleCreateCV(user)}
+                disabled={isCreatingCV}
+              >
+                {isCreatingCV ? "Creating..." : "Create CV"}
+              </button>
             </li>
           ))}
         </ul>
       ) : (
         <p>All users already have a CV.</p>
+      )}
+
+      {createCVError && (
+        <p style={{ color: "red" }}>
+          Error creating CV. Please try again later.
+        </p>
       )}
     </div>
   );
