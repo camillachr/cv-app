@@ -1,5 +1,12 @@
 {
   "files": [],
+  "compilerOptions": {
+    "types": ["@testing-library/jest-dom"],
+    "jsx": "react-jsx", // Sørger for at TypeScript forstår JSX
+    "esModuleInterop": true, // Løser ts-jest advarselen om moduler
+    "allowSyntheticDefaultImports": true, // For å støtte moduler med standardeksport
+    "strict": true
+  },
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
