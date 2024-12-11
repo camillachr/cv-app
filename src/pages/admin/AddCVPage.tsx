@@ -3,11 +3,11 @@ import {
   useGetAllUsersQuery,
   useGetAllCVsQuery,
   useCreateCVMutation,
-} from "../../../redux/apiSlice";
-import { CVPost, User } from "../../../types/types";
-import { ROUTES } from "../../../routes/AppRoutes";
+} from "../../redux/apiSlice";
+import { CVPost, User } from "../../types/types";
+import { ROUTES } from "../../routes/AppRoutes";
 
-const AddCVForm = () => {
+const AddCVPage = () => {
   const navigate = useNavigate();
   const {
     data: users,
@@ -91,4 +91,4 @@ const AddCVForm = () => {
   );
 };
 
-export default AddCVForm;
+export default AddCVPage;

@@ -2,12 +2,12 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
 import AddUserForm from "../features/users/AddUserForm";
 import ProtectedRoute from "../components/ProtectedRoute";
-import AddCVForm from "../features/cv/cv-admin/AddCVForm";
 import LoginForm from "../components/LoginForm";
 import EditCVPage from "../pages/EditCVPage";
 import EditUserPage from "../pages/admin/EditUserPage";
 import UsersPage from "../pages/admin/UsersPage";
 import CVsPage from "../pages/admin/CVsPage";
+import AddCVPage from "../pages/admin/AddCVPage";
 
 export const ROUTES = {
   ROOT: "/",
@@ -39,7 +39,7 @@ const AppRoutes = () => {
       <Route element={<ProtectedRoute requiredRole="admin" />}>
         <Route path={ROUTES.ADMIN.CVS} element={<CVsPage />} />
         <Route path={ROUTES.ADMIN.CV(":id")} element={<EditCVPage />} />
-        <Route path={ROUTES.ADMIN.NEW_CV} element={<AddCVForm />} />
+        <Route path={ROUTES.ADMIN.NEW_CV} element={<AddCVPage />} />
         <Route path={ROUTES.ADMIN.USERS} element={<UsersPage />} />
         <Route path={ROUTES.ADMIN.USER(":id")} element={<EditUserPage />} />
         <Route path={ROUTES.ADMIN.NEW_USER} element={<AddUserForm />} />
