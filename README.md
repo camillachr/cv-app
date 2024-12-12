@@ -32,8 +32,9 @@ The project is configured with Jest and React Testing Library for testing. While
 
 You can run tests using the following command:
 
-````bash
+```bash
 npm run test
+```
 
 ## Installation
 
@@ -42,6 +43,8 @@ npm run test
    ```bash
    git clone <repo-url>
    cd cv-app
+   ```
+
 ````
 
 2. Install dependencies:
@@ -105,3 +108,4 @@ Det er enkelte ting jeg skulle ønske jeg gjorde annerledes, og som jeg har tenk
 - Bruken av provides- og validatestags i apiSplice kunne vært brukt på en bedre måte ved å angi type og id, slik at den bare invaliderer det som ble oppdatert, og ikke hele listen. (F.eks. invaliderer en spesifikk CV i en liste ved oppdatering av denne CV-en, istedenfor å invalidere hele listen med CV-er).
 
 - Jeg burde selvfølgelig også implementert testing, noe jeg ikke rakk da enkelte ting tok lenger tid enn først antatt. Men jeg har satt det opp og konfigurert slik at tester kan legges inn.
+````
