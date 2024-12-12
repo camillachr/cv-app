@@ -21,7 +21,19 @@ A dynamic application for creating, updating, and exporting CVs. Users can custo
 - **Backend:**
   - CRUD API (https://crudapi.co.uk)
 - **Build Tool:**
+
   - Vite
+  - **Testing:**
+  - Jest with React Testing Library (configured but not implemented)
+
+  ## Testing
+
+The project is configured with Jest and React Testing Library for testing. While the setup is complete, test cases have not yet been implemented due to time constraints.
+
+You can run tests using the following command:
+
+````bash
+npm run test
 
 ## Installation
 
@@ -30,7 +42,7 @@ A dynamic application for creating, updating, and exporting CVs. Users can custo
    ```bash
    git clone <repo-url>
    cd cv-app
-   ```
+````
 
 2. Install dependencies:
 
@@ -72,9 +84,15 @@ The application communicates with [crudapi.co.uk](https://crudapi.co.uk) to mana
 
 ## Rapport
 
-Jeg ønsket å lage CV-skjemaet i mindre deler for bedre brukervennlighet, derfor laget jeg CV-editor i flere deler som man kan navigere imellom. Jeg ønsket også å gjenbruke dette slik at både user og admin tar i bruk samme komponent, bare på ulike routes.
+Jeg ønsket å lage CV-skjemaet i mindre deler for bedre brukervennlighet, derfor laget jeg CV-editor i flere deler som man kan navigere imellom. Jeg ønsket også å gjenbruke CV-editoren slik at både user og admin tar i bruk samme komponent, bare på ulike routes.
 
-LocalStorage er brukt til å lagre autorisasjon, slik at man kan teste routes man ikke har tilgang til via frontend.
+Jeg valgte å bruke RTK Query hovedsaklig for å håndtere caching.
+
+LocalStorage er brukt til å lagre autorisasjonen, hovedsaklig slik at man kan teste routes man ikke har tilgang til via frontend.
+
+### React PDF
+
+Jeg har sett at enkelte ganger vises PDF-viewer som en tom firkant inne i applikasjonen, men det fungerer som normalt når man starter applikasjonen på nytt. Jeg kan ikke se hvorfor dette skjer.
 
 ### Forbedringer
 
@@ -82,8 +100,8 @@ Det er enkelte ting jeg skulle ønske jeg gjorde annerledes, og som jeg har tenk
 
 - Inndeling av komponenter i CV-editor og logikken i de ulike seksjonene av CV-en kunne vært gjort på en bedre måte. Det ble mye gjentakende kode og logikk i alle delene av CV-editoren (PersonalInfo, Education, Certificates, osv. ).
 
-- "Save changes"-knappene i CV-skjemaet ikke var like brukervennlig som først tenkt. Det er ikke så intutivt å måtte klikke først "Add", og så se at noe legges til i listen, og deretter huske å klikke "Save" før man navigerer videre til neste seksjon. En forbedring hadde vært å request til API-et på "Add"-knappen istedenfor, der hvor man legger til ting som skills, education, osv.
+- "Save changes"-knappene i CV-skjemaet ikke var like brukervennlig som først tenkt. Det er ikke så intutivt å måtte klikke først "Add", og så se at noe legges til i listen, og deretter huske å klikke "Save" før man navigerer videre til neste seksjon. En forbedring hadde vært å sette inn API-kall direkte på "Add"-knappen istedenfor (der hvor man legger til ting som skills, education, osv.), og samme med sletting; direkte DELETE request når man fjerner noe fra listen. Det ville blitt flere API-kall, men mer brukervennlig etter min mening.
 
 - Bruken av provides- og validatestags i apiSplice kunne vært brukt på en bedre måte ved å angi type og id, slik at den bare invaliderer det som ble oppdatert, og ikke hele listen. (F.eks. invaliderer en spesifikk CV i en liste ved oppdatering av denne CV-en, istedenfor å invalidere hele listen med CV-er).
 
-- Jeg burde selvfølgelig også implementert testing, noe jeg ikke rakk da enkelte ting tok lenger tid enn først antatt.
+- Jeg burde selvfølgelig også implementert testing, noe jeg ikke rakk da enkelte ting tok lenger tid enn først antatt. Men jeg har satt det opp og konfigurert slik at tester kan legges inn.
