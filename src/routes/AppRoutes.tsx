@@ -31,7 +31,7 @@ const AppRoutes = () => {
       <Route path={ROUTES.ROOT} element={<HomePage />} />
       <Route path={ROUTES.LOGIN} element={<LoginForm />} />
 
-      <Route element={<ProtectedRoute />}>
+      <Route element={<ProtectedRoute requireOwner />}>
         <Route path={ROUTES.MY_CV(":id")} element={<EditCVPage />} />
       </Route>
 
