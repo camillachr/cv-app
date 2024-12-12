@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import HomePage from "../pages/HomePage";
-import AddUserForm from "../features/users/AddUserForm";
 import ProtectedRoute from "../components/ProtectedRoute";
 import LoginForm from "../components/LoginForm";
 import EditCVPage from "../pages/EditCVPage";
 import EditUserPage from "../pages/admin/EditUserPage";
-import UsersPage from "../pages/admin/UsersPage";
 import CVsPage from "../pages/admin/CVsPage";
 import AddCVPage from "../pages/admin/AddCVPage";
+import AddUserPage from "../pages/admin/AddUserForm";
+import UsersPage from "../pages/admin/UsersPage";
 
 export const ROUTES = {
   ROOT: "/",
@@ -42,7 +42,7 @@ const AppRoutes = () => {
         <Route path={ROUTES.ADMIN.NEW_CV} element={<AddCVPage />} />
         <Route path={ROUTES.ADMIN.USERS} element={<UsersPage />} />
         <Route path={ROUTES.ADMIN.USER(":id")} element={<EditUserPage />} />
-        <Route path={ROUTES.ADMIN.NEW_USER} element={<AddUserForm />} />
+        <Route path={ROUTES.ADMIN.NEW_USER} element={<AddUserPage />} />
       </Route>
     </Routes>
   );
