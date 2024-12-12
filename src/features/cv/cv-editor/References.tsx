@@ -3,6 +3,8 @@ import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, References as ReferencesType } from "../../../types/types";
 import SaveCVBtn from "../../../components/SaveCVBtn";
 
+import RemoveItemBtn from "../../../components/RemoveItemBtn";
+
 interface ReferencesProps {
   cv?: CV;
 }
@@ -126,16 +128,16 @@ const References = ({ cv }: ReferencesProps) => {
 
         <ul className="cv-form-ul">
           {references.map((ref, index) => (
-            <li key={index}>
+            <li key={index} style={{ display: "flex" }}>
               <p>
                 {ref.name} ({ref.relationship}) - {ref.contactInfo}
               </p>
-              <button
-                type="button"
+              <RemoveItemBtn
                 onClick={() => handleRemoveReference(index)}
-              >
-                Remove
-              </button>
+                size={20}
+                color="red"
+                style={{ marginLeft: "10px" }}
+              />
             </li>
           ))}
         </ul>

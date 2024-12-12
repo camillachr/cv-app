@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, Experience as ExperienceType } from "../../../types/types";
 import SaveCVBtn from "../../../components/SaveCVBtn";
+import RemoveItemBtn from "../../../components/RemoveItemBtn";
 
 interface ExperienceProps {
   cv?: CV;
@@ -148,18 +149,18 @@ const Experience = ({ cv }: ExperienceProps) => {
         </div>
         <ul className="cv-form-ul">
           {experiences.map((exp, index) => (
-            <li key={index}>
+            <li key={index} style={{ display: "flex" }}>
               <p>
                 {exp.jobTitle} at {exp.company} ({exp.startDate}
                 {exp.endDate ? ` to ${exp.endDate}` : " to Present"})
                 {exp.description ? `: ${exp.description}` : ""}
               </p>
-              <button
-                type="button"
+              <RemoveItemBtn
                 onClick={() => handleRemoveExperience(index)}
-              >
-                Remove
-              </button>
+                size={20}
+                color="red"
+                style={{ marginLeft: "10px" }}
+              />
             </li>
           ))}
         </ul>

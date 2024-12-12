@@ -11,8 +11,6 @@ const DeleteButton = ({ onDelete, isDeleting, text }: DeleteButtonProps) => (
     style={{
       backgroundColor: "red",
       color: "white",
-      marginTop: "20px",
-      padding: "10px 20px",
       border: "none",
       cursor: isDeleting ? "not-allowed" : "pointer",
     }}

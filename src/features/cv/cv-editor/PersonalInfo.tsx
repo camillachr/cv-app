@@ -3,6 +3,8 @@ import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, CVPost } from "../../../types/types";
 import SaveCVBtn from "../../../components/SaveCVBtn";
 
+import RemoveItemBtn from "../../../components/RemoveItemBtn";
+
 type SkillsType = CVPost["skills"];
 
 interface PersonalInfoProps {
@@ -170,19 +172,14 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
         </div>
         <ul className="cv-form-ul">
           {personalInfo.skills?.map((skill, index) => (
-            <li key={index}>
+            <li key={index} style={{ display: "flex" }}>
               {skill}
-              <button
-                type="button"
+              <RemoveItemBtn
                 onClick={() => handleSkillRemove(index)}
-                style={{
-                  marginLeft: "10px",
-                  backgroundColor: "white",
-                  color: "red",
-                }}
-              >
-                Remove
-              </button>
+                size={20}
+                color="red"
+                style={{ marginLeft: "10px" }}
+              />
             </li>
           ))}
         </ul>

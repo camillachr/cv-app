@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, Certificate as CertificateType } from "../../../types/types";
 import SaveCVBtn from "../../../components/SaveCVBtn";
+import RemoveItemBtn from "../../../components/RemoveItemBtn";
 
 interface CertificatesProps {
   cv?: CV;
@@ -144,18 +145,17 @@ const Certificates = ({ cv }: CertificatesProps) => {
 
         <ul className="cv-form-ul">
           {certificates.map((cert, index) => (
-            <li key={index}>
+            <li key={index} style={{ display: "flex" }}>
               <p>
                 {cert.title} issued by {cert.issuer} on {cert.date}
                 {cert.description ? ` - ${cert.description}` : ""}
               </p>
-              <button
-                type="button"
+              <RemoveItemBtn
                 onClick={() => handleRemoveCertificate(index)}
-                style={{ color: "red", marginLeft: "10px" }}
-              >
-                Remove
-              </button>
+                size={20}
+                color="red"
+                style={{ marginLeft: "10px" }}
+              />
             </li>
           ))}
         </ul>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, Education as EducationType } from "../../../types/types";
 import SaveCVBtn from "../../../components/SaveCVBtn";
+import RemoveItemBtn from "../../../components/RemoveItemBtn";
 
 interface EducationProps {
   cv?: CV;
@@ -152,13 +153,12 @@ const Education = ({ cv }: EducationProps) => {
                 {education.startYear}
                 {education.endYear ? ` - ${education.endYear}` : " - Present"})
               </p>
-              <button
-                type="button"
+              <RemoveItemBtn
                 onClick={() => handleRemoveEducation(index)}
-                style={{ color: "red", marginLeft: "10px" }}
-              >
-                Remove
-              </button>
+                size={20}
+                color="red"
+                style={{ marginLeft: "10px" }}
+              />
             </li>
           ))}
         </ul>
