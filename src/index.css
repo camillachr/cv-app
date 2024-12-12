@@ -41,7 +41,6 @@ header {
   align-items: center;
 }
 
-h1,
 h2 {
   margin-bottom: 20px;
 }
@@ -131,6 +130,12 @@ label {
 
 /* CV EDITOR */
 
+.cv-editor-heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .cv-editor {
   display: flex;
   width: 100%;
@@ -173,6 +178,11 @@ label {
 .cv-section {
   margin: 30px;
   border-bottom: 1px solid #2b6777;
+}
+
+.cv-section-form {
+  display: flex;
+  gap: 10px;
 }
 
 .pdf-export-container {

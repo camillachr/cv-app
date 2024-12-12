@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, CVPost } from "../../../types/types";
+import SaveCVBtn from "../../../components/SaveCVBtn";
 
 type SkillsType = CVPost["skills"];
 
@@ -84,6 +85,7 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
   return (
     <div>
       <h2>Personal Info</h2>
+
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name</label>
@@ -93,9 +95,9 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
             name="name"
             value={personalInfo.name}
             onChange={handleInputChange}
+            placeholder="Enter name"
           />
         </div>
-
         <div>
           <label htmlFor="email">Email</label>
           <input
@@ -104,9 +106,9 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
             name="email"
             value={personalInfo.email}
             onChange={handleInputChange}
+            placeholder="Enter email adress"
           />
         </div>
-
         <div>
           <label htmlFor="phone">Phone</label>
           <input
@@ -115,9 +117,9 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
             name="phone"
             value={personalInfo.phone}
             onChange={handleInputChange}
+            placeholder="Enter phone number"
           />
         </div>
-
         <div>
           <h3>Skills</h3>
           <input
@@ -148,16 +150,7 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
             ))}
           </ul>
         </div>
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          style={{
-            backgroundColor: "blue",
-          }}
-        >
-          {isLoading ? "Saving..." : "Save changes"}
-        </button>
+        <SaveCVBtn isLoading={isLoading} />
         {isSuccess && <p>Changes saved!</p>}
         {isError && <p>Error saving changes. Please try again.</p>}
       </form>

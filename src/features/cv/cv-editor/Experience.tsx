@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, Experience as ExperienceType } from "../../../types/types";
+import SaveCVBtn from "../../../components/SaveCVBtn";
 
 interface ExperienceProps {
   cv?: CV;
@@ -143,9 +144,7 @@ const Experience = ({ cv }: ExperienceProps) => {
             </li>
           ))}
         </ul>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Saving..." : "Save changes"}
-        </button>
+        <SaveCVBtn isLoading={isLoading} />
         {isSuccess && <p>Experience updated successfully!</p>}
         {isError && <p>Error updating experience. Please try again.</p>}
       </form>

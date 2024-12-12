@@ -16,6 +16,9 @@ const ExportPage = ({ cv }: ExportPageProps) => {
       cv?.references?.map((references) => references.name) || [],
   });
 
+  if (!cv) console.log("CV is missing");
+  console.log(cv);
+
   return (
     <>
       <h2>Customize CV for Export</h2>

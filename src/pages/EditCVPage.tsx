@@ -8,6 +8,7 @@ import { useGetAllUsersQuery, useGetCVQuery } from "../redux/apiSlice";
 import Certificates from "../features/cv/cv-editor/Certificates";
 import References from "../features/cv/cv-editor/References";
 import ExportPage from "../features/cv/pdf-export/ExportPage";
+import GoBackBtn from "../components/GoBackBtn";
 
 const EditCVPage = () => {
   const { id } = useParams();
@@ -56,7 +57,10 @@ const EditCVPage = () => {
 
   return (
     <div>
-      <h1>CV for {cvOwner?.name || "Unknown User"}</h1>
+      <div className="cv-editor-heading">
+        <h1>CV for {cvOwner?.name || "Unknown User"}</h1>
+        <GoBackBtn />
+      </div>
       <div className="cv-editor">
         <nav className="cv-editor-nav">
           {sections.map((section) => (
@@ -69,6 +73,7 @@ const EditCVPage = () => {
             </button>
           ))}
         </nav>
+
         <div className="editor-active-section">
           {sections.find((section) => section.key === activeSection)
             ?.content || <p>Invalid section</p>}

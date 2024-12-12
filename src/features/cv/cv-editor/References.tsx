@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, References as ReferencesType } from "../../../types/types";
+import SaveCVBtn from "../../../components/SaveCVBtn";
 
 interface ReferencesProps {
   cv?: CV;
@@ -118,9 +119,7 @@ const References = ({ cv }: ReferencesProps) => {
             </li>
           ))}
         </ul>
-        <button type="submit" disabled={isLoading}>
-          {isLoading ? "Saving..." : "Save changes"}
-        </button>
+        <SaveCVBtn isLoading={isLoading} />
         {isSuccess && <p>References updated successfully!</p>}
         {isError && <p>Error updating references. Please try again.</p>}
       </form>

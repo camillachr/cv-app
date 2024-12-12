@@ -84,8 +84,6 @@ const Education = ({ cv }: EducationProps) => {
     }
   };
 
-  console.log(cv.education);
-
   return (
     <div>
       <h2>Education</h2>
