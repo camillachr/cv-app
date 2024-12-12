@@ -21,7 +21,7 @@ const HomePage = () => {
 
   if (!isAuthenticated) {
     return (
-      <div>
+      <div className="container">
         <h2>Create, Customize, Conquer</h2>
         <h1>Your Dynamic CV Awaits!</h1>
       </div>
@@ -59,7 +59,7 @@ const HomePage = () => {
 
   if (!userCV) {
     return (
-      <div>
+      <div className="container">
         <h1>Welcome, {user?.name}!</h1>
         <h2>Ready to get your dream job?</h2>
         <p>
@@ -75,7 +75,7 @@ const HomePage = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <h1>Welcome back, {user?.name}!</h1>
     </div>
   );

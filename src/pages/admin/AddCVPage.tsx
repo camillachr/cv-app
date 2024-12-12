@@ -7,6 +7,7 @@ import {
 import { CVPost, User } from "../../types/types";
 import { ROUTES } from "../../routes/AppRoutes";
 import { useState } from "react";
+import GoBackBtn from "../../components/GoBackBtn";
 
 const AddCVPage = () => {
   const navigate = useNavigate();
@@ -66,7 +67,7 @@ const AddCVPage = () => {
   if (!usersWithoutCV) return null;
 
   return (
-    <div>
+    <div className="container">
       <h1>Add CV</h1>
       <h2>Users currently without a CV:</h2>
 
@@ -93,6 +94,7 @@ const AddCVPage = () => {
           Error creating CV. Please try again later.
         </p>
       )}
+      <GoBackBtn />
     </div>
   );
 };

@@ -13,7 +13,7 @@ const CVsPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <button onClick={handleButtonClick}>+ Create CV</button>
       <ul>
         {cvs?.map((cv) => (

@@ -21,7 +21,7 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div>
+    <div className="container">
       <h1>Admin Dashboard</h1>
       <div>
         <h2>Statistics</h2>

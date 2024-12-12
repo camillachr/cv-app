@@ -13,7 +13,7 @@ const UsersPage = () => {
   };
 
   return (
-    <div>
+    <div className="container">
       <h2>Users</h2>
       <button onClick={handleButtonClick}>+ Add user</button>
       <ul>

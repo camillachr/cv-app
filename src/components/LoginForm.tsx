@@ -84,7 +84,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="container">
       <h2>Login</h2>
 
       <div>
@@ -112,7 +112,11 @@ const LoginForm = () => {
         />
       </div>
 
-      <button type="submit" disabled={isLoading || isUsersLoading}>
+      <button
+        type="submit"
+        disabled={isLoading || isUsersLoading}
+        style={{ marginTop: "10px" }}
+      >
         {isLoading ? "Logging in..." : "Login"}
       </button>
 
