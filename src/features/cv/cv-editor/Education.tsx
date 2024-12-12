@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, Education as EducationType } from "../../../types/types";
+import SaveCVBtn from "../../../components/SaveCVBtn";
 
 interface EducationProps {
   cv?: CV;
@@ -21,6 +22,8 @@ const Education = ({ cv }: EducationProps) => {
     endYear: "",
   });
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   // Fyller ut felter ved render
   useEffect(() => {
     setEducation(cv.education || []);
@@ -34,11 +37,24 @@ const Education = ({ cv }: EducationProps) => {
       ...prev,
       [name]: value,
     }));
+    setErrorMessage(null);
+  };
+
+  const validateFields = () => {
+    if (
+      !newEducation.institution.trim() ||
+      !newEducation.degree.trim() ||
+      !newEducation.startYear.trim()
+    ) {
+      setErrorMessage("Must fill out requried fields.");
+      return false;
+    }
+    return true;
   };
 
   const handleAddEducation = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (newEducation.institution.trim() && newEducation.degree.trim()) {
+    if (validateFields()) {
       setEducation((prev) => [...prev, newEducation]);
       setNewEducation({
         institution: "",
@@ -68,65 +84,69 @@ const Education = ({ cv }: EducationProps) => {
     }
   };
 
+  console.log(cv.education);
+
   return (
     <div>
       <h2>Education</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="institution">Institution</label>
-          <input
-            type="text"
-            id="institution"
-            name="institution"
-            value={newEducation.institution}
-            onChange={handleInputChange}
-            placeholder="Enter institution name"
-          />
+      <form className="cv-section-form" onSubmit={handleSubmit}>
+        <div className="cv-form-add">
+          <div>
+            <label htmlFor="institution">Institution</label>
+            <input
+              type="text"
+              id="institution"
+              name="institution"
+              value={newEducation.institution}
+              onChange={handleInputChange}
+              placeholder="Enter institution name"
+            />
+          </div>
+          <div>
+            <label htmlFor="degree">Degree</label>
+            <input
+              type="text"
+              id="degree"
+              name="degree"
+              value={newEducation.degree}
+              onChange={handleInputChange}
+              placeholder="Enter degree"
+            />
+          </div>
+          <div>
+            <label htmlFor="startYear">Start Year</label>
+            <input
+              type="text"
+              id="startYear"
+              name="startYear"
+              value={newEducation.startYear}
+              onChange={handleInputChange}
+              placeholder="Enter start year (YYYY)"
+            />
+          </div>
+          <div>
+            <label htmlFor="endYear">End Year (optional)</label>
+            <input
+              type="text"
+              id="endYear"
+              name="endYear"
+              value={newEducation.endYear || ""}
+              onChange={handleInputChange}
+              placeholder="Enter end year (YYYY)"
+            />
+          </div>
+          <div className="btn-container">
+            <button type="button" onClick={handleAddEducation}>
+              + Add Education
+            </button>
+            <SaveCVBtn isLoading={isLoading} />
+          </div>
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+          {isSuccess && <p>Changes saved successfully!</p>}
+          {isError && <p>Error saving changes. Please try again.</p>}
         </div>
-        <div>
-          <label htmlFor="degree">Degree</label>
-          <input
-            type="text"
-            id="degree"
-            name="degree"
-            value={newEducation.degree}
-            onChange={handleInputChange}
-            placeholder="Enter degree"
-          />
-        </div>
-        <div>
-          <label htmlFor="startYear">Start Year</label>
-          <input
-            type="text"
-            id="startYear"
-            name="startYear"
-            value={newEducation.startYear}
-            onChange={handleInputChange}
-            placeholder="Enter start year (YYYY)"
-          />
-        </div>
-        <div>
-          <label htmlFor="endYear">End Year (optional)</label>
-          <input
-            type="text"
-            id="endYear"
-            name="endYear"
-            value={newEducation.endYear || ""}
-            onChange={handleInputChange}
-            placeholder="Enter end year (YYYY)"
-          />
-        </div>
-        <button
-          type="button"
-          onClick={handleAddEducation}
-          disabled={
-            !newEducation.institution.trim() || !newEducation.degree.trim()
-          }
-        >
-          + Add Education
-        </button>
 
-        <ul>
+        <ul className="cv-form-ul">
           {education.map((education, index) => (
             <li key={index} style={{ display: "flex" }}>
               <p>
@@ -144,19 +164,6 @@ const Education = ({ cv }: EducationProps) => {
             </li>
           ))}
         </ul>
-
-        <button
-          type="submit"
-          disabled={isLoading}
-          style={{
-            backgroundColor: "blue",
-            color: "white",
-          }}
-        >
-          {isLoading ? "Saving..." : "Save changes"}
-        </button>
-        {isSuccess && <p>Changes saved successfully!</p>}
-        {isError && <p>Error saving changes. Please try again.</p>}
       </form>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useUpdateCVMutation } from "../../../redux/apiSlice";
 import { CV, Certificate as CertificateType } from "../../../types/types";
+import SaveCVBtn from "../../../components/SaveCVBtn";
 
 interface CertificatesProps {
   cv?: CV;
@@ -21,6 +22,8 @@ const Certificates = ({ cv }: CertificatesProps) => {
     description: "",
   });
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   useEffect(() => {
     setCertificates(cv.certificates || []);
   }, [cv]);
@@ -33,15 +36,24 @@ const Certificates = ({ cv }: CertificatesProps) => {
       ...prev,
       [name]: value,
     }));
+    setErrorMessage(null);
+  };
+
+  const validateFields = () => {
+    if (
+      !newCertificate.title.trim() ||
+      !newCertificate.issuer.trim() ||
+      !newCertificate.date.trim()
+    ) {
+      setErrorMessage("Must fill out required fields.");
+      return false;
+    }
+    return true;
   };
 
   const handleAddCertificate = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (
-      newCertificate.title.trim() &&
-      newCertificate.issuer.trim() &&
-      newCertificate.date.trim()
-    ) {
+    if (validateFields()) {
       setCertificates((prev) => [...prev, newCertificate]);
       setNewCertificate({
         title: "",
@@ -118,15 +130,7 @@ const Certificates = ({ cv }: CertificatesProps) => {
             placeholder="Enter description"
           />
         </div>
-        <button
-          type="button"
-          onClick={handleAddCertificate}
-          disabled={
-            !newCertificate.title.trim() ||
-            !newCertificate.issuer.trim() ||
-            !newCertificate.date.trim()
-          }
-        >
+        <button type="button" onClick={handleAddCertificate}>
           + Add Certificate
         </button>
 
@@ -148,18 +152,10 @@ const Certificates = ({ cv }: CertificatesProps) => {
           ))}
         </ul>
 
-        <button
-          type="submit"
-          disabled={isLoading}
-          style={{
-            backgroundColor: "blue",
-            color: "white",
-          }}
-        >
-          {isLoading ? "Saving..." : "Save changes"}
-        </button>
+        <SaveCVBtn isLoading={isLoading} />
         {isSuccess && <p>Changes saved successfully!</p>}
         {isError && <p>Error saving changes. Please try again.</p>}
+        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </form>
     </div>
   );
