@@ -95,6 +95,10 @@ LocalStorage er brukt til å lagre autorisasjonen, hovedsaklig slik at man kan t
 
 Jeg har sett at enkelte ganger vises PDF-viewer som en tom firkant inne i applikasjonen, men det fungerer som normalt når man starter applikasjonen på nytt. Jeg kan ikke se hvorfor dette skjer.
 
+### Chat-GTP
+
+Jeg har brukt chat-GTP som sparrings-partner og utforske ulike tilnærminger. Som regel har jeg en plan for hva jeg ønsker og så stiller jeg spørsmål rundt dette før jeg går for en løsning. Et eksempel er RTK Query, som jeg ikke kunne noe om fra før. Jeg leste RTK Query sin dokumentasjon, og stilte kontrollspørsmål til chat-GTP for å bekrefte at jeg forsto det riktig, eller å utdype det jeg ikke forsto. I tillegg har jeg brukt chat-GTP hvis jeg har en syntax-feil i koden som jeg ikke klarer å finne (når det blir litt mange () og {} etter hverandre).
+
 ### Forbedringer
 
 Det er enkelte ting jeg skulle ønske jeg gjorde annerledes, og som jeg har tenkt på underveis men ikke hatt nok tid til å endre på:
