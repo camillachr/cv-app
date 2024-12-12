@@ -6,6 +6,7 @@ import {
 } from "../../redux/apiSlice";
 import { CVPost, User } from "../../types/types";
 import { ROUTES } from "../../routes/AppRoutes";
+import { useState } from "react";
 
 const AddCVPage = () => {
   const navigate = useNavigate();
@@ -20,15 +21,16 @@ const AddCVPage = () => {
     isLoading: isLoadingCVs,
   } = useGetAllCVsQuery();
 
-  const [createCV, { isLoading: isCreatingCV, isError: createCVError }] =
-    useCreateCVMutation();
+  const [createCV, { isError: createCVError }] = useCreateCVMutation();
+  const [creatingUserId, setCreatingUserId] = useState<string | null>(null); // Holder styr på hvilken bruker som behandles
 
-  // Finn brukere som ikke allerede har en CV
+  // Finn brukere som ikke allerede har en CV og som har rollen "user"
   const usersWithoutCV = users?.filter(
-    (user) => !cvs?.some((cv) => cv.userId === user._uuid)
+    (user) =>
+      user.role === "user" && !cvs?.some((cv) => cv.userId === user._uuid)
   );
-
   const handleCreateCV = async (user: User) => {
+    setCreatingUserId(user._uuid);
     try {
       const initialCV: CVPost = {
         userId: user._uuid,
@@ -45,9 +47,11 @@ const AddCVPage = () => {
       };
 
       const createdCV = await createCV(initialCV).unwrap();
-      navigate(ROUTES.MY_CV(createdCV._uuid));
+      navigate(ROUTES.ADMIN.CV(createdCV._uuid));
     } catch (error) {
       console.error("Failed to create CV:", error);
+    } finally {
+      setCreatingUserId(null);
     }
   };
 
@@ -59,11 +63,13 @@ const AddCVPage = () => {
     return <p>Error loading data. Please try again later.</p>;
   }
 
-  if (!usersWithoutCV) return;
+  if (!usersWithoutCV) return null;
+
   return (
     <div>
       <h1>Add CV</h1>
-      <h2>Select a user to create a CV for:</h2>
+      <h2>Users currently without a CV:</h2>
+
       {usersWithoutCV?.length > 0 ? (
         <ul>
           {usersWithoutCV.map((user) => (
@@ -71,9 +77,9 @@ const AddCVPage = () => {
               {user.name} ({user.email})
               <button
                 onClick={() => handleCreateCV(user)}
-                disabled={isCreatingCV}
+                disabled={!!creatingUserId}
               >
-                {isCreatingCV ? "Creating..." : "Create CV"}
+                {creatingUserId === user._uuid ? "Creating..." : "Create CV"}
               </button>
             </li>
           ))}
