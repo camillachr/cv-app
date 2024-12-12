@@ -19,7 +19,7 @@ const CVsPage = () => {
         {cvs?.map((cv) => (
           <li key={cv._uuid}>
             <Link to={`${ROUTES.ADMIN.CV(cv._uuid)}`}>
-              {cv.personalInfo?.name} - {cv.personalInfo?.email}
+              {cv.personalInfo?.name}
             </Link>
           </li>
         ))}
