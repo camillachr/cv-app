@@ -64,7 +64,7 @@ npm run test
 - `npm run start` - Starts the application for preview.
 - `npm test` - Runs the tests (when tests are implemented).
 
-### API
+## API
 
 The application communicates with [crudapi.co.uk](https://crudapi.co.uk) to manage user and CV data.
 
