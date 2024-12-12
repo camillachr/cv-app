@@ -47,11 +47,14 @@ const EditUserPage = () => {
   };
 
   const handleDelete = async () => {
-    try {
-      await deleteUser(user._uuid).unwrap();
-      navigate(ROUTES.ADMIN.USERS);
-    } catch (error) {
-      console.error("Failed to delete user:", error);
+    if (window.confirm("Are you sure you want to delete this user?")) {
+      try {
+        await deleteUser(user._uuid).unwrap();
+        navigate(ROUTES.ADMIN.USERS);
+      } catch (error) {
+        console.error("Failed to delete user:", error);
+        alert("Error deleting user. Please try again.");
+      }
     }
   };
 
