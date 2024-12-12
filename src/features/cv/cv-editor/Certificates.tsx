@@ -87,54 +87,62 @@ const Certificates = ({ cv }: CertificatesProps) => {
   return (
     <div>
       <h2>Certificates</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={newCertificate.title}
-            onChange={handleCertificateInputChange}
-            placeholder="Enter certificate title"
-          />
+      <form className="cv-section-form" onSubmit={handleSubmit}>
+        <div className="cv-form-add">
+          <div>
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value={newCertificate.title}
+              onChange={handleCertificateInputChange}
+              placeholder="Enter certificate title"
+            />
+          </div>
+          <div>
+            <label htmlFor="issuer">Issuer</label>
+            <input
+              type="text"
+              id="issuer"
+              name="issuer"
+              value={newCertificate.issuer}
+              onChange={handleCertificateInputChange}
+              placeholder="Enter issuer"
+            />
+          </div>
+          <div>
+            <label htmlFor="date">Date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              value={newCertificate.date}
+              onChange={handleCertificateInputChange}
+            />
+          </div>
+          <div>
+            <label htmlFor="description">Description (optional)</label>
+            <textarea
+              id="description"
+              name="description"
+              value={newCertificate.description || ""}
+              onChange={handleCertificateInputChange}
+              placeholder="Enter description"
+            />
+          </div>
+          <div className="btn-container">
+            <button type="button" onClick={handleAddCertificate}>
+              + Add Certificate
+            </button>
+            <SaveCVBtn isLoading={isLoading} />
+          </div>
+          {isSuccess && <p>Changes saved successfully!</p>}
+          {isError && <p>Error saving changes. Please try again.</p>}
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
         </div>
-        <div>
-          <label htmlFor="issuer">Issuer</label>
-          <input
-            type="text"
-            id="issuer"
-            name="issuer"
-            value={newCertificate.issuer}
-            onChange={handleCertificateInputChange}
-            placeholder="Enter issuer"
-          />
-        </div>
-        <div>
-          <label htmlFor="date">Date</label>
-          <input
-            type="date"
-            id="date"
-            name="date"
-            value={newCertificate.date}
-            onChange={handleCertificateInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description (optional)</label>
-          <textarea
-            id="description"
-            name="description"
-            value={newCertificate.description || ""}
-            onChange={handleCertificateInputChange}
-            placeholder="Enter description"
-          />
-        </div>
-        <button type="button" onClick={handleAddCertificate}>
-          + Add Certificate
-        </button>
 
-        <ul>
+        <ul className="cv-form-ul">
           {certificates.map((cert, index) => (
             <li key={index}>
               <p>
@@ -151,11 +159,6 @@ const Certificates = ({ cv }: CertificatesProps) => {
             </li>
           ))}
         </ul>
-
-        <SaveCVBtn isLoading={isLoading} />
-        {isSuccess && <p>Changes saved successfully!</p>}
-        {isError && <p>Error saving changes. Please try again.</p>}
-        {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
       </form>
     </div>
   );
