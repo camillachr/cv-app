@@ -13,7 +13,7 @@ interface ExportControlProps {
 }
 
 const ExportControl = ({ cv, options, setOptions }: ExportControlProps) => {
-  // Håndterer valg og fravalg av individuelle elementer
+  // Håndterer valg og fravalg av individuelle elementer, her fikk jeg litt hjelp av chat-GTP
   const handleSelectItem = (
     section: keyof ExportOptions,
     item: string,
