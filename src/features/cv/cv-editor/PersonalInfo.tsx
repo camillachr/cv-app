@@ -44,7 +44,7 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
     setPersonalInfo((prev) => ({ ...prev, [name]: value }));
 
     if (name === "name" && value.trim()) {
-      setErrorMessage(null); // Fjern feilmelding når name er utfylt
+      setErrorMessage(null);
     }
   };
 
@@ -76,7 +76,7 @@ const PersonalInfo = ({ cv }: PersonalInfoProps) => {
       skills: [...(prev.skills || []), newSkill.trim()],
     }));
     setNewSkill("");
-    setErrorMessage(null); // Fjern feilmelding etter vellykket legg til
+    setErrorMessage(null);
   };
 
   const handleSkillRemove = (index: number) => {

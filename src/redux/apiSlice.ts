@@ -4,7 +4,7 @@ import { User, UserPost, ApiResponse, CV, CVPost } from "../types/types";
 const apiUrl = import.meta.env.VITE_API_BASE_URL;
 const apiKey = import.meta.env.VITE_API_KEY;
 
-//Jeg kunne også delt dette opp i to api-er (et for users og et for CV-er), men siden det er samme base url og nøkkel gjorde jeg ikke det.
+//? Jeg kunne også delt dette opp i to api-er (et for users og et for CV-er), men siden det er samme base url og nøkkel gjorde jeg ikke det.
 
 export const api = createApi({
   reducerPath: "api",

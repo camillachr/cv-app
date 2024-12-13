@@ -21,8 +21,6 @@ const LoginForm = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-
-    // Fjern feil når bruker begynner å skrive
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
 
