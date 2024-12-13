@@ -1,7 +1,9 @@
 import { useState } from "react";
 import GoBackBtn from "../../components/GoBackBtn";
 import {
+  useDeleteCVMutation,
   useDeleteUserMutation,
+  useGetAllCVsQuery,
   useGetAllUsersQuery,
   useUpdateUserMutation,
 } from "../../redux/apiSlice";
@@ -12,7 +14,9 @@ const EditUserPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: users, isLoading, isError } = useGetAllUsersQuery();
+  const { data: cvs } = useGetAllCVsQuery();
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+  const [deleteCV, { isLoading: isDeletingCV }] = useDeleteCVMutation();
   const [updateUser, { isLoading: isUpdating }] = useUpdateUserMutation();
 
   if (isLoading) return <p>Loading...</p>;
@@ -20,6 +24,8 @@ const EditUserPage = () => {
 
   const user = users?.find((user) => user._uuid === id);
   if (!user) return <p>User not found.</p>;
+
+  const userCV = cvs?.find((cv) => cv.userId === user._uuid);
 
   // Lokal state for felter som kan redigeres direkte
   const [formData, setFormData] = useState({
@@ -51,6 +57,12 @@ const EditUserPage = () => {
       window.confirm(`Are you sure you want to delete the user "${user.name}"?`)
     ) {
       try {
+        // Slett brukerens CV hvis den eksisterer
+        if (userCV) {
+          await deleteCV(userCV._uuid).unwrap();
+        }
+
+        // Slett bruker
         await deleteUser(user._uuid).unwrap();
         navigate(ROUTES.ADMIN.USERS);
       } catch (error) {
