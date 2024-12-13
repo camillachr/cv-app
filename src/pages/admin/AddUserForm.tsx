@@ -3,6 +3,10 @@ import { UserPost } from "../../types/types";
 import { useCreateUserMutation } from "../../redux/apiSlice";
 import GoBackBtn from "../../components/GoBackBtn";
 
+const isValidEmail = (email: string) =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email); //chat-GTP hjalp meg her
+const isValidPassword = (password: string) => password.length >= 6;
+
 const AddUserPage = () => {
   const [formData, setFormData] = useState<UserPost>({
     name: "",
@@ -15,15 +19,24 @@ const AddUserPage = () => {
   const [createUser, { isLoading, isSuccess, isError }] =
     useCreateUserMutation();
 
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrorMessage(null);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isValidEmail(formData.email)) {
+      return setErrorMessage("Please enter a valid email address.");
+    }
+    if (!isValidPassword(formData.password)) {
+      return setErrorMessage("Password must be at least 6 characters long.");
+    }
     try {
       await createUser(formData).unwrap();
       setFormData({
@@ -33,8 +46,9 @@ const AddUserPage = () => {
         password: "",
         role: "user",
       });
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to add user:", error);
+      setErrorMessage(error.data?.message || "Something went wrong.");
     }
   };
 
@@ -109,8 +123,9 @@ const AddUserPage = () => {
           </button>
           <GoBackBtn />
         </div>
-        {isSuccess && <p>User added!</p>}
+        {isSuccess && <p>User added! Go back to view user.</p>}
         {isError && <p>There was an error, please try again.</p>}
+        {errorMessage && <p className="error">{errorMessage}</p>}
       </form>
     </div>
   );
