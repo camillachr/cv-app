@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { UserPost } from "../../types/types";
-import { useCreateUserMutation } from "../../redux/apiSlice";
+import {
+  useCreateUserMutation,
+  useGetAllUsersQuery,
+} from "../../redux/apiSlice";
 import GoBackBtn from "../../components/GoBackBtn";
 
 const isValidEmail = (email: string) =>
@@ -15,6 +18,8 @@ const AddUserPage = () => {
     password: "",
     role: "user", // standard
   });
+
+  const { data: users, isLoading: isFetchingUsers } = useGetAllUsersQuery();
 
   const [createUser, { isLoading, isSuccess, isError }] =
     useCreateUserMutation();
@@ -37,6 +42,19 @@ const AddUserPage = () => {
     if (!isValidPassword(formData.password)) {
       return setErrorMessage("Password must be at least 6 characters long.");
     }
+
+    if (isFetchingUsers) {
+      return setErrorMessage("Checking for existing users, please wait...");
+    }
+
+    // Sjekk om e-post allerede eksisterer
+    const emailExists = users?.some(
+      (user: UserPost) => user.email === formData.email
+    );
+    if (emailExists) {
+      return setErrorMessage("A user with this email address already exists.");
+    }
+
     try {
       await createUser(formData).unwrap();
       setFormData({
@@ -65,7 +83,6 @@ const AddUserPage = () => {
             name="name"
             value={formData.name}
             onChange={handleInputChange}
-            required
           />
         </div>
         <div>
@@ -76,7 +93,6 @@ const AddUserPage = () => {
             name="username"
             value={formData.username}
             onChange={handleInputChange}
-            required
           />
         </div>
 
@@ -88,7 +104,6 @@ const AddUserPage = () => {
             name="email"
             value={formData.email}
             onChange={handleInputChange}
-            required
           />
         </div>
 
@@ -100,7 +115,6 @@ const AddUserPage = () => {
             name="password"
             value={formData.password}
             onChange={handleInputChange}
-            required
           />
         </div>
 

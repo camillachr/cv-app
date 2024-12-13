@@ -47,7 +47,9 @@ const EditUserPage = () => {
   };
 
   const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this user?")) {
+    if (
+      window.confirm(`Are you sure you want to delete the user "${user.name}"?`)
+    ) {
       try {
         await deleteUser(user._uuid).unwrap();
         navigate(ROUTES.ADMIN.USERS);

@@ -32,6 +32,13 @@ const AddCVPage = () => {
   );
   const handleCreateCV = async (user: User) => {
     setCreatingUserId(user._uuid);
+
+    // Ekstra sjekk at CV ikke allerede eksisterer
+    if (cvs?.some((cv) => cv.userId === user._uuid)) {
+      console.error(`CV already exists for user: ${user.name}`);
+      setCreatingUserId(null);
+      return alert(`CV already exists for ${user.name}.`);
+    }
     try {
       const initialCV: CVPost = {
         userId: user._uuid,
