@@ -28,9 +28,9 @@ A dynamic application for creating, updating, and exporting CVs. Users can custo
 
   ## Testing
 
-The project is configured with Jest and React Testing Library for testing. While the setup is complete, test cases have not yet been implemented due to time constraints.
+The project is configured with Jest and React Testing Library for testing. While the setup is complete, test cases have not yet been implemented. For now, testing is done manually via DevTools tabs.
 
-You can run tests using the following command:
+When implemented, you can run tests using the following command:
 
 ```bash
 npm run test
@@ -41,7 +41,7 @@ npm run test
 1. Clone the repository:
 
    ```bash
-   git clone <repo-url>
+   git clone https://github.com/camillachr/cv-app.git
    cd cv-app
    ```
 
@@ -85,11 +85,17 @@ The application communicates with [crudapi.co.uk](https://crudapi.co.uk) to mana
 
 ## Rapport
 
-Jeg ønsket å lage CV-skjemaet i mindre deler for bedre brukervennlighet, derfor laget jeg CV-editor i flere deler som man kan navigere imellom. Jeg ønsket også å gjenbruke CV-editoren slik at både user og admin tar i bruk samme komponent, bare på ulike routes.
+### Planlegging og diverse
 
-Jeg valgte å bruke RTK Query hovedsaklig for å håndtere caching.
+Jeg startet med å lage wireframes av prosjektet for å få et overblikk av hva jeg skulle lage. Tanken var å lage CV-skjemaet i mindre deler for bedre brukervennlighet, derfor laget jeg CV-editor i flere deler som man kan navigere imellom. Dette angret jeg på etter en stund, da det nok sikkert hadde vært enklere å lage et stort skjema, men da var det for sent å snu. Jeg ønsket også å gjenbruke CV-editoren slik at både user og admin tar i bruk samme komponent, men på ulike routes.
 
-LocalStorage er brukt til å lagre autorisasjonen, hovedsaklig slik at man kan teste routes man ikke har tilgang til via frontend.
+Jeg valgte å bruke RTK Query hovedsaklig for å håndtere caching. Dette har jeg aldri brukt før, men tror jeg fikk til det grunnleggende.
+
+LocalStorage er brukt til å lagre autorisasjonen fra forrige session, hovedsaklig slik at jeg fikk teste routes man ikke har tilgang til via frontend, ved å gå direkte til en gitt url.
+
+### Typescript
+
+TypeScript bruke jeg for andre gang på dette prosjektet, og det var veldig nyttig. Jeg er selvfølgelig ikke 100% trygg på det enda, og det mangler sikkert litt her og der, men det var til stor hjelp underveis og jeg kommer til å fortsette å bruke det.
 
 ### React PDF
 
@@ -97,7 +103,16 @@ Jeg har sett at enkelte ganger vises PDF-viewer som en tom firkant inne i applik
 
 ### Chat-GTP
 
-Jeg har brukt chat-GTP som sparrings-partner og utforske ulike tilnærminger. Som regel har jeg en plan for hva jeg ønsker og så stiller jeg spørsmål rundt dette før jeg går for en løsning. Et eksempel er RTK Query, som jeg ikke kunne noe om fra før. Jeg leste RTK Query sin dokumentasjon, og stilte kontrollspørsmål til chat-GTP for å bekrefte at jeg forsto det riktig, eller å utdype det jeg ikke forsto. I tillegg har jeg brukt chat-GTP hvis jeg har en syntax-feil i koden som jeg ikke klarer å finne (når det blir litt mange () og {} etter hverandre).
+Jeg har brukt chat-GTP som sparrings-partner og for å utforske ulike tilnærminger. Som regel har jeg en plan for hva jeg ønsker og så stiller jeg spørsmål rundt dette før jeg går for en løsning. Jeg spør også hvis det er noe jeg ikke har brukt tidligere. Et eksempel på dette er RTK Query. Jeg leste RTK Query sin dokumentasjon, og stilte kontrollspørsmål til chat-GTP for å bekrefte at jeg forsto det riktig, eller å utdype det jeg ikke forsto. I tillegg har jeg brukt chat-GTP hvis jeg har en syntax-feil i koden som jeg ikke klarer å finne (når det blir litt mange () og {} etter hverandre etter x antall timer koding).
+
+### .env
+
+Env-filen er inkludert på github, selvom man egentlig ikke skal gjøre dette (det var også slik vi gjorde det på arbeidskravet). Bakgrunnen for dette er at sensor skal slippe å lage nøkkel og legge inn data selv.
+
+### Testing og debugging
+
+Jeg har testet og feilsøkt underveis med DevTools i Google Chrome og brukt Postman noe.
+Jeg forsøkte å legge inn tester med Jest i prosjektet. Jeg fikk til å konfigurere selve testmiljøet, med hjelp av chat-GTP og youtube. De veiledningene vi har fått tidligere til å sette det opp fungerte ikke på mitt prosjekt. Virker som det skyldes Vite-versjonen jeg bruker, så det ble en del knot der. Forsøkte å implementere noen tester som inkluderte API-kall, men da ble det feil pga. API-nøklene. Dette har jeg ikke vært borti tidligere, og det ble desverre ikke nok tid til å finne ut av dette for meg og jeg måtte droppe disse testene.
 
 ### Forbedringer
 
@@ -108,5 +123,3 @@ Det er enkelte ting jeg skulle ønske jeg gjorde annerledes, og som jeg har tenk
 - "Save changes"-knappene i CV-skjemaet ikke var like brukervennlig som først tenkt. Det er ikke så intutivt å måtte klikke først "Add", og så se at noe legges til i listen, og deretter huske å klikke "Save" før man navigerer videre til neste seksjon. En forbedring hadde vært å sette inn API-kall direkte på "Add"-knappen istedenfor (der hvor man legger til ting som skills, education, osv.), og samme med sletting; direkte DELETE request når man fjerner noe fra listen. Det ville blitt flere API-kall, men mer brukervennlig etter min mening.
 
 - Bruken av provides- og validatestags i apiSplice kunne vært brukt på en bedre måte ved å angi type og id, slik at den bare invaliderer det som ble oppdatert, og ikke hele listen. (F.eks. invaliderer en spesifikk CV i en liste ved oppdatering av denne CV-en, istedenfor å invalidere hele listen med CV-er).
-
-- Jeg burde selvfølgelig også implementert testing, noe jeg ikke rakk da enkelte ting tok lenger tid enn først antatt. Men jeg har satt det opp og konfigurert slik at tester kan legges inn.
