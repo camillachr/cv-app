@@ -123,3 +123,9 @@ Det er enkelte ting jeg skulle ønske jeg gjorde annerledes, og som jeg har tenk
 - "Save changes"-knappene i CV-skjemaet ikke var like brukervennlig som først tenkt. Det er ikke så intutivt å måtte klikke først "Add", og så se at noe legges til i listen, og deretter huske å klikke "Save" før man navigerer videre til neste seksjon. En forbedring hadde vært å sette inn API-kall direkte på "Add"-knappen istedenfor (der hvor man legger til ting som skills, education, osv.), og samme med sletting; direkte DELETE request når man fjerner noe fra listen. Det ville blitt flere API-kall, men mer brukervennlig etter min mening.
 
 - Bruken av provides- og validatestags i apiSplice kunne vært brukt på en bedre måte ved å angi type og id, slik at den bare invaliderer det som ble oppdatert, og ikke hele listen. (F.eks. invaliderer en spesifikk CV i en liste ved oppdatering av denne CV-en, istedenfor å invalidere hele listen med CV-er).
+
+- Jeg burde også implementert at bruker kan velge å se/skjule passordet, samt validering på telefonnummer.
+
+- I tillegg ser jeg nå, rett før jeg leverer, at jeg desverre ikke har lagt inn redigeringsmuligheter på skills, education osv., som allerede er lagt til i listen. Det skulle selvfølgelig vært med. Nå må man fjerne elementet og lage det på nytt.
+
+Jaja, god jul!
