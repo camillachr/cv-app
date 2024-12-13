@@ -14,6 +14,7 @@ const CVsPage = () => {
 
   return (
     <div className="container">
+      <h2>CVs</h2>
       <button onClick={handleButtonClick}>+ Create CV</button>
       <ul>
         {cvs?.map((cv) => (

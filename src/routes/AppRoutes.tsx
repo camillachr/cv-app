@@ -12,10 +12,9 @@ import UsersPage from "../pages/admin/UsersPage";
 export const ROUTES = {
   ROOT: "/",
   LOGIN: "/login",
-  MY_CV: (id: string) => `/mycv/${id}`, // Auth skal sjekker at user er eier av cv
+  MY_CV: (id: string) => `/mycv/${id}`,
 
   ADMIN: {
-    // Alle admin ruter skal være beskyttet og kreve admin rolle
     CVS: "/admin/cvs",
     CV: (id: string) => `/admin/cvs/${id}`,
     NEW_CV: "/admin/cvs/new",
